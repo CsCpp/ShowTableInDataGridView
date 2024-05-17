@@ -38,10 +38,26 @@ namespace ShowTableInDataGridView
             adapter = new SqlDataAdapter("SELECT * FROM User",sqlConnection);
 
             table = new DataTable();
-            
-            adapter.Fill(table);
+            try
+            {
+                adapter.Fill(table);
+            }
+            catch (Exception )
+            {
 
-            dataGridView1.DataSource = table;
+               
+            }
+
+            try
+            {
+                dataGridView1.DataSource = table;
+            }
+            catch (Exception)
+            {
+
+              
+            }
+           
 
         
         }
