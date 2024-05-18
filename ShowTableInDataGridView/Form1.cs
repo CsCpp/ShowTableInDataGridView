@@ -15,7 +15,7 @@ namespace ShowTableInDataGridView
     {
         private SqlConnection sqlConnection= null;
         private SqlDataAdapter adapter = null;
-        private DataTable table = null;
+        private DataTable dataTable = null;
         public Form1()
         {
             InitializeComponent();
@@ -23,11 +23,12 @@ namespace ShowTableInDataGridView
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            table.Clear();
+            dataTable.Clear();
 
-            adapter.Fill(table);
 
-            dataGridView1.DataSource = table;
+      adapter.Fill(dataTable);
+
+          dataGridView1.DataSource = dataTable;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -35,31 +36,22 @@ namespace ShowTableInDataGridView
             sqlConnection = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\RZA\source\repos\ShowTableInDataGridView\ShowTableInDataGridView\Database1.mdf;Integrated Security=True");
             sqlConnection.Open();
 
-            adapter = new SqlDataAdapter("SELECT * FROM User",sqlConnection);
+            adapter = new SqlDataAdapter("SELECT * FROM [User]", sqlConnection);
 
-            table = new DataTable();
-            try
-            {
-                adapter.Fill(table);
-            }
-            catch (Exception )
-            {
+            dataTable = new DataTable();
+            adapter.Fill(dataTable);
 
-               
-            }
+            dataGridView1.DataSource = dataTable;
 
-            try
-            {
-                dataGridView1.DataSource = table;
-            }
-            catch (Exception)
-            {
+            // DataSet ds = new DataSet();
+            //adapter.Fill(ds);
+            //dataGridView1.DataSource = ds.Tables[0];
 
-              
-            }
-           
 
-        
+
+
+
+
         }
     }
 }
